@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumes for {{ job.title }} - HireSmart</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .table {
+      margin-top: 20px;
+    }
+    .no-resumes-message {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #999;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="my-4">Resumes for {{ job.title }}</h1>
+    
+    {% if resumes %}
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Candidate Name</th>
+            <th>Resume</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for resume in resumes %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>Candidate {{ loop.index }}</td>
+              <td><a href="{{ url_for('static', filename='resumes/' + resume.resume_filename) }}" target="_blank">View Resume</a></td>
+              <td><button class="btn btn-primary">Shortlist</button></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="no-resumes-message">
+        <p>No resumes uploaded yet for this job.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
