@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applicant Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .navbar {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar {
+      height: 100vh;
+      width: 250px;
+      position: fixed;
+      background-color: #2c3e50;
+      color: white;
+      padding-top: 20px;
+    }
+    .sidebar .nav-link {
+      color: white;
+      padding: 12px;
+      display: block;
+      transition: 0.3s;
+    }
+    .sidebar .nav-link:hover {
+      background-color: #34495e;
+    }
+    .main-content {
+      margin-left: 260px;
+      padding: 20px;
+    }
+    .main-content h3 {
+      color: #1a252f;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+    .overview-card {
+      background: linear-gradient(145deg, #ffffff, #f8f9fa); /* Subtle card gradient */
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .main-content h3 {
+      color: #1a252f;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+    .overview-card {
+      background: linear-gradient(145deg, #ffffff, #f8f9fa); /* Subtle card gradient */
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .overview-card p {
+      margin: 0;
+      color: #666;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    .activity-list {
+      background: linear-gradient(145deg, #ffffff, #f8f9fa);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s;
+    }
+    .activity-list:hover {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    .activity-list h5 {
+      margin-bottom: 20px;
+      color: #1a252f;
+      font-weight: 600;
+    }
+    .activity-item {
+      padding: 15px 0;
+      border-bottom: 1px solid #e0e7ff;
+      transition: background 0.2s;
+    }
+    .activity-item:hover {
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+    .activity-item p {
+      margin: 0;
+      color: #333;
+    }
+    .activity-item small {
+      color: #888;
+    }
+    .quick-links {
+      background: linear-gradient(145deg, #ffffff, #f8f9fa);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s;
+    }
+    .quick-links:hover {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    .quick-links h5 {
+      margin-bottom: 20px;
+      color: #1a252f;
+      font-weight: 600;
+    }
+    .quick-links a {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      color: #007BFF;
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+      border-radius: 5px;
+    }
+    .quick-links a:hover {
+      color: #0056b3;
+      background: #e0e7ff;
+      padding-left: 5px;
+    }
+    .quick-links a i {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+    .card {
+      border: none;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src='{{ url_for("static", filename="image.png") }}' alt="HireSmart Logo" width="40" height="40">
+      <span class="ms-2">HireSmart</span>
+    </a>
+    <div class="d-flex">
+      <a href="{{ url_for('home') }}" class="btn btn-outline-primary me-2">Home</a>
+      <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="sidebar d-flex flex-column p-3">
+  <div class="text-center mb-4">
+    <i class="fas fa-user-circle fa-4x"></i>
+    <h5 class="mt-2">{{ session['user_name'] if 'user_name' in session else 'Applicant Name' }}</h5>
+    <p>{{ session['email'] if 'email' in session else 'applicant@example.com' }}</p>
+  </div>
+  <a href="{{ url_for('job_openings') }}" class="nav-link"><i class="fas fa-briefcase me-2"></i> Job Openings</a>
+  <a href="{{ url_for('applied_jobs') }}" class="nav-link"><i class="fas fa-file-alt me-2"></i> View Applications</a>
+  <a href="{{ url_for('profile_settings') }}" class="nav-link"><i class="fas fa-user-cog me-2"></i> Personal Information</a>
+  <a href="{{ url_for('upload_resume') }}" class="nav-link"><i class="fas fa-upload me-2"></i> Upload Resume</a>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <h3>Welcome to Your Applicant Dashboard</h3>
+
+  <!-- Dashboard Overview -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="overview-card">
+        <i class="fas fa-file-alt"></i>
+        <h6>Total Applications</h6>
+        <p>{{ total_applications if total_applications is defined else '0' }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="overview-card">
+        <i class="fas fa-calendar-check"></i>
+        <h6>Pending Interviews</h6>
+        <p>{{ pending_interviews if pending_interviews is defined else '0' }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="overview-card">
+        <i class="fas fa-user-check"></i>
+        <h6>Profile Completion</h6>
+        <p>{{ profile_completion if profile_completion is defined else '50%' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity and Quick Links -->
+  <div class="row">
+    <!-- Recent Activity -->
+    <div class="col-md-8">
+      <div class="activity-list">
+        <h5>Recent Activity</h5>
+        {% if recent_activities|length > 0 %}
+          {% for activity in recent_activities %}
+            <div class="activity-item">
+              <p class="mb-0">
+                <strong>{{ activity.action }}</strong> - {{ activity.job_title }} at {{ activity.company }} 
+                <small class="text-muted float-end">{{ activity.date }}</small>
+              </p>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted">No recent activity to display.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="col-md-4">
+      <div class="quick-links">
+        <h5>Quick Links</h5>
+        <a href="{{ url_for('job_openings') }}"><i class="fas fa-briefcase me-2"></i> Browse Job Openings</a>
+        <a href="{{ url_for('applied_jobs') }}"><i class="fas fa-file-alt me-2"></i> View Applications</a>
+        <a href="{{ url_for('profile_settings') }}"><i class="fas fa-user-cog me-2"></i> Update Profile</a>
+        <a href="{{ url_for('upload_resume') }}"><i class="fas fa-upload me-2"></i> Upload Resume</a>
+        <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
