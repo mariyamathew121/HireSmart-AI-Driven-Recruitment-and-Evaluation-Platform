@@ -1,0 +1,38 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+code/frontend/node_modules
+frontend/.pnp
+frontend/node_modules
+frontend.pnp.js
+
+# testing
+frontend/coverage
+
+# production
+frontend/build
+
+# misc
+frontend/.DS_Store
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+
+#model
+model/__pycache__/
+model/models/
+model/models/classes.TXT
+model/models/yolov3.weights
+model/model.pkl
+
+
+#backend
+backend/app/__pycache__/
+code/backend/app/__pycache__/
